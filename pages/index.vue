@@ -1,8 +1,5 @@
 <template>
-    Select a page:
-        <button v-for="model in models" :key="model.name" @click="selected = model" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            {{ model.name }}
-        </button>
+    /HOME
 </template>
 
 <script setup>
