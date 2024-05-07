@@ -1,25 +1,19 @@
 <template>
-    <div class="flex justify-center">
-        <input type="text" v-model="searchInput"  class="border border-primary-500 rounded-full" @input="filterPokemonsByName" placeholder="Search Pokemon">   
-    </div>
-
-    <h2 class="text-2xl font-bold text-left ml-6">Types:</h2>
-    <div class="flex overflow-x-auto w-full" v-if="!typePending">
-        <button v-for="type in types" :key="type.id" @click="toggleType(type)" :class="selectedType == type ? 'border border-primary-500' : ''">
+    
+    <SearchBar @new-search="(srch) => filterPokemonsByName(srch)" />
+   
+    <Caroussel title="Types" :loading="typePending">
+        <button v-for="type in types" :key="type.id" @click="toggleType(type)"
+            :class="selectedType == type ? 'border-2 border-primary-500 rounded-lg bg-primary-200' : ''">
             <TypeCard :type />
         </button>
-    </div>
-    <template v-else>
-        <p>Loading...</p>
-    </template>
+    </Caroussel>
 
-    <h2 class="text-2xl font-bold text-left ml-6" >Pokemons:</h2>
-    <div class="flex overflow-x-auto w-full" v-if="!pokePending">
-        <PokemonCard v-for="pokemon in displayedPokemons" :key="pokemon.id" :pokemon="pokemon"/>
-    </div>
-    <template v-else>
-        <p>Loading...</p>
-    </template>
+    <Caroussel title="Pokemons" :loading="pokePending" class="mt-4">
+        <PokemonCard v-for="pokemon in displayedPokemons" :key="pokemon.id" :pokemon="pokemon">
+            <Button content="See Pokemon" @click="goToPokemon(pokemon)" type="secondary" size="sm" />
+        </PokemonCard>
+    </Caroussel>
 
 </template>
 
@@ -42,9 +36,10 @@ const fetchPokemons = async () => {
 }
 
 const fetchTypes = async () => {
+    typePending.value = true
     const response = await $fetch('https://pokebuildapi.fr/api/v1/types')
     types.value = response
-    console.log(response)
+    typePending.value = false
 }
 
 onMounted(() => {
@@ -53,11 +48,9 @@ onMounted(() => {
 })
 
 // SEARCH BAR
-const searchInput = ref('')
+const filterPokemonsByName = (search) => {
+    displayedPokemons.value = pokemons.value.filter(pokemon => pokemon.name.includes(search))
 
-const filterPokemonsByName = () => {
-    displayedPokemons.value = pokemons.value.filter(pokemon => pokemon.name.includes(searchInput.value))
-    
     if (selectedType.value !== null) {
         filterPokemonsByTypeFrom(displayedPokemons.value)
     }
@@ -72,7 +65,7 @@ const filterPokemonsByTypeFrom = (pokeList) => {
         displayedPokemons.value = pokeList
         return
     }
-    
+
     // Filter the pokemons
     displayedPokemons.value = []
     for (let pokemon of pokeList) {
@@ -92,6 +85,12 @@ const toggleType = (type) => {
     }
     selectedType.value = type
     filterPokemonsByTypeFrom(pokemons.value)
+}
+
+// NAVIGATION
+const router = useRouter()
+const goToPokemon = (pokemon) => {
+    router.push('/pokemon/' + pokemon.name)
 }
 
 </script>

@@ -4,12 +4,8 @@
 
 <script setup>
 
-const models = [
-    { name: 'Person', route: 'persons' },
-    { name: 'Posts', route: 'posts' },
-    { name: 'Books', route: 'books' }
-]
+const router = useRouter()
 
-const selected = ref(models[0])
+router.push('/catalogue')
 
 </script>
