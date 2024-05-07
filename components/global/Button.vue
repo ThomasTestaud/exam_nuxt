@@ -19,8 +19,8 @@ const props = defineProps({
 })
 
 const colors = {
-    primary: 'bg-blue-500 hover:bg-blue-700',
-    secondary: 'bg-gray-500 hover:bg-gray-700',
+    primary: 'bg-primary-500 hover:bg-primary-700',
+    secondary: 'bg-secondary-500 hover:bg-secondary-700',
     validate: 'bg-green-500 hover:bg-green-700',
     warning: 'bg-yellow-500 hover:bg-yellow-700',
     danger: 'bg-red-500 hover:bg-red-700',

@@ -30,7 +30,6 @@ import { useClipboard } from '@vueuse/core'
 const source = ref('Hello')
 const { text, copy, copied, isSupported } = useClipboard({ source })
 
-
 const props = defineProps({
     model: String,
     amount: Number
@@ -43,7 +42,5 @@ const query = computed(() => ({ amount: amount.value || 3 }))
 const headers = { 'Authorization': 'secret' }
 
 const { data, pending } = useFetch(url, { query, headers })
-
-
 
 </script>
