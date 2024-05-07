@@ -20,7 +20,7 @@
             </div>
         </template>
         <template v-else>
-            <p>Loading...</p>
+            <Loader />
         </template>
     </container>
 </template>
@@ -36,7 +36,6 @@ const pokemon = ref(null)
 const fetchPokemon = async () => {
     const response = await $fetch('https://pokebuildapi.fr/api/v1/pokemon/' + name)
     pokemon.value = response
-    console.log(response)
 }
 
 const pokeTeam = useState('pokeTeam', () => []);

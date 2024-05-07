@@ -29,7 +29,7 @@ const displayedPokemons = ref([])
 // FETCH POKEMONS AND TYPES
 const fetchPokemons = async () => {
     pokePending.value = true
-    const response = await $fetch('https://pokebuildapi.fr/api/v1/pokemon/limit/100')
+    const response = await $fetch('https://pokebuildapi.fr/api/v1/pokemon/limit/70')
     pokemons.value = response
     displayedPokemons.value = response
     pokePending.value = false

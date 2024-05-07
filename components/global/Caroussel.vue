@@ -6,7 +6,7 @@
             <slot />
         </div>
         <template v-else>
-            <p>Loading...</p>
+            <Loader />
         </template>
     </div>
 </template>
