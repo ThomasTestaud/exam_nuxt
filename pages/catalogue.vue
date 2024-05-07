@@ -49,7 +49,7 @@ onMounted(() => {
 
 // SEARCH BAR
 const filterPokemonsByName = (search) => {
-    displayedPokemons.value = pokemons.value.filter(pokemon => pokemon.name.includes(search))
+    displayedPokemons.value = pokemons.value.filter(pokemon => pokemon.name.toLowerCase().includes(search.toLowerCase()))
 
     if (selectedType.value !== null) {
         filterPokemonsByTypeFrom(displayedPokemons.value)
